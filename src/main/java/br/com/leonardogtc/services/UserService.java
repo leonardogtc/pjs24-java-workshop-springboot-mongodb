@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.leonardogtc.domain.User;
 import br.com.leonardogtc.repository.UserRepository;
+import br.com.leonardogtc.services.exception.ObjectNotFoundException;
 
 @Service
 public class UserService {
@@ -16,5 +17,18 @@ public class UserService {
 	
 	public List<User> findAll() {
 		return repo.findAll();
+	}
+	
+//	public User findById(String id) {
+//		User user = repo.findOne(id);
+//		if (user == null) {
+//			throw new br.com.leonardogtc.services.exception.ObjectNotFoundException("Object not found! Id: " + id + ", Type: " + User.class.getName());
+//		}
+//		return user;
+//	}
+	
+	public User findById(String id) {
+		return repo.findById(id)
+				.orElseThrow(() -> new ObjectNotFoundException("Object not found! Id: " + id + ", Type: " + User.class.getName()));
 	}
 }
