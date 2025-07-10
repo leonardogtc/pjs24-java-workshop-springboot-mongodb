@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.leonardogtc.domain.Post;
 import br.com.leonardogtc.domain.User;
 import br.com.leonardogtc.dto.UserDTO;
 import br.com.leonardogtc.services.UserService;
@@ -63,6 +64,13 @@ public class UserResource {
 		user.setId(id); // Ensure the ID is set for the update
 		user = service.update(user);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/{id}/posts")
+	public ResponseEntity<List<Post>> findPostsByUserId(@PathVariable String id) {
+		User user = service.findById(id);
+		List<Post> posts = user.getPosts();
+		return ResponseEntity.ok().body(posts);
 	}
 
 }
