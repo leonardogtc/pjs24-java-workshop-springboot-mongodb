@@ -1,11 +1,14 @@
 package br.com.leonardogtc.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.com.leonardogtc.dto.AuthorDTO;
+import br.com.leonardogtc.dto.CommentDTO;
 
 @Document
 public class Post implements java.io.Serializable {
@@ -18,6 +21,8 @@ public class Post implements java.io.Serializable {
 	private String title;
 	private String body;
 	private AuthorDTO author; // Assuming you might want to add an author field later
+	
+	private List<CommentDTO> comments = new ArrayList<>(); // Assuming you might want to add a list of comments later
 	
 	public Post() {
 	}
@@ -69,6 +74,14 @@ public class Post implements java.io.Serializable {
 	public void setAuthor(AuthorDTO author) {
 		this.author = author;
 	}
+	
+	public List<CommentDTO> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<CommentDTO> comments) {
+		this.comments = comments;
+	}
 
 	@Override
 	public int hashCode() {
@@ -94,6 +107,8 @@ public class Post implements java.io.Serializable {
 			return false;
 		return true;
 	}
+
+	
 
 	
 	

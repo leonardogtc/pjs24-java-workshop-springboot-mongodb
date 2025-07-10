@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import br.com.leonardogtc.domain.Post;
 import br.com.leonardogtc.domain.User;
 import br.com.leonardogtc.dto.AuthorDTO;
+import br.com.leonardogtc.dto.CommentDTO;
 import br.com.leonardogtc.repository.PostRepository;
 import br.com.leonardogtc.repository.UserRepository;
 
@@ -46,6 +47,19 @@ public class Instantiation implements CommandLineRunner {
 		
 		maria.getPosts().addAll(Arrays.asList(post1, post2));
 		userRepository.save(maria);
+		
+		// Adicionar comentários aos posts
+		post1.getComments().addAll(Arrays.asList(
+				new CommentDTO("Boa viagem mano!", dateFormat.parse("21/03/2018"), new AuthorDTO(alex)),
+				new CommentDTO("Aproveite!", dateFormat.parse("22/03/2018"), new AuthorDTO(bob))
+		));
+		
+		post2.getComments().addAll(Arrays.asList(
+				new CommentDTO("Tenha um ótimo dia!", dateFormat.parse("23/03/2018"), new AuthorDTO(alex)),
+				new CommentDTO("Aproveite o dia!", dateFormat.parse("24/03/2018"), new AuthorDTO(bob))
+		));
+		
+		postRepository.saveAll(Arrays.asList(post1, post2));
 
 		System.out.println("Application started and ready to use!");
 	}
